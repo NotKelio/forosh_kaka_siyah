@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شخصیت بازی – شایان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14161f;
+    --card: #1e2130;
+    --line: #2f344b;
+    --text: #eceef6;
+    --muted: #9aa0bb;
+    --accent: #ffb020;
+    --accent-dark: #3a2a00;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: "Vazirmatn", Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px 16px;
+  }
+  .card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  h1 { font-size: 2rem; font-weight: 900; margin-bottom: 22px; }
+  .sub { color: var(--muted); margin-bottom: 22px; font-size: .95rem; }
+
+  .stats { list-style: none; padding: 0; }
+  .stats li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stats li:last-child { border-bottom: 0; }
+  .stats span:first-child { color: var(--muted); }
+  .stats span:last-child { font-weight: 700; }
+
+  .actions { display: flex; gap: 10px; margin-top: 22px; }
+  button {
+    flex: 1;
+    font: inherit;
+    font-weight: 700;
+    padding: 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+  }
+  button:hover { border-color: var(--muted); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .buy { background: var(--accent); border-color: var(--accent); color: var(--accent-dark); }
+  .buy:hover { filter: brightness(1.08); border-color: var(--accent); }
+
+  .profile {
+    display: none;
+    text-align: center;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .profile.open { display: block; }
+  .profile img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    background: #2a2e44;
+  }
+  .profile p { margin-top: 10px; font-weight: 700; }
+
+  .msg { margin-top: 14px; text-align: center; color: var(--accent); min-height: 1.4em; font-size: .95rem; }
+</style>
+</head>
+<body>
+
+<main class="card">
+  <h1>شایان</h1>
+
+  <ul class="stats">
+    <li><span>سن</span><span>۱۶ سال</span></li>
+    <li><span>وزن</span><span>۵۵ کیلو</span></li>
+    <li><span>رنگ پوست</span><span>سیاه</span></li>
+    <li><span>قدرت</span><span>۵ کیلو در هر دست</span></li>
+    <li><span>تحمل</span><span>۳۰ ضربه در روز</span></li>
+  </ul>
+
+  <div class="actions">
+    <button id="profileBtn" type="button">دیدن پروفایل</button>
+    <button id="buyBtn" class="buy" type="button">خرید</button>
+  </div>
+
+  <section id="profile" class="profile">
+    <!-- عکس پروفایل: فایل عکس شخصیت بازی را با نام avatar.png کنار index.html بگذار -->
+    <img id="avatar" src="avatar.png" alt="پروفایل شایان">
+    <p>شایان</p>
+  </section>
+
+  <p id="msg" class="msg" role="status"></p>
+</main>
+
+<script>
+  // اگر avatar.png وجود نداشت، یک آواتار ساده نشان بده
+  const placeholder = "data:image/svg+xml;utf8," + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">' +
+    '<rect width="200" height="200" fill="#2a2e44"/>' +
+    '<circle cx="100" cy="78" r="36" fill="#9aa0bb"/>' +
+    '<path d="M30 190c6-42 36-62 70-62s64 20 70 62z" fill="#9aa0bb"/></svg>'
+  );
+  const avatar = document.getElementById("avatar");
+  avatar.onerror = () => { avatar.onerror = null; avatar.src = placeholder; };
+
+  const profile = document.getElementById("profile");
+  const profileBtn = document.getElementById("profileBtn");
+  profileBtn.addEventListener("click", () => {
+    const open = profile.classList.toggle("open");
+    profileBtn.textContent = open ? "بستن پروفایل" : "دیدن پروفایل";
+  });
+
+  document.getElementById("buyBtn").addEventListener("click", () => {
+    document.getElementById("msg").textContent = "شایان به سبد خرید اضافه شد.";
+  });
+</script>
+</body>
+</html>
